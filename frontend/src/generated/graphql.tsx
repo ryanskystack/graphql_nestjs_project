@@ -21,16 +21,6 @@ export const TenList = gql`
   }
 `;
 
-export const FiveMoreList = gql`
-  query GetFiveMore {
-    getFiveMorePosts {
-      post_id
-      title
-      excerpt
-    }
-  }
-`;
-
 export const GET_CATEGORIES = gql`
   query getCategories {
     getCategories {

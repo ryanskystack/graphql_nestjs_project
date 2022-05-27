@@ -4,18 +4,16 @@ import ExcerptPage from './ExcerptPage';
 
 
 const LatestArticlesPage = () => {
-  const [isFiveMore, setIsFiveMore] = React.useState(false);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
 
       <div>
-        <ArticleList setIsFiveMore={setIsFiveMore} />
+        <ArticleList />
       </div>
       <div>
         <div>
-          <ExcerptPage isFiveMore={isFiveMore} 
-           />
+          <ExcerptPage />
         </div>
       </div>
     </div>

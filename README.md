@@ -4,9 +4,8 @@ A demo full-stack blog application, including:
 (1)Latest Article Page(Default page),
    has a main section, it can display 10 latest article's titles and excerpts
    has a sidebar, it should display a list of titles
-   there is a More button to display 5 more latest articles
    clicking on an article title should lead to the Article Page
-   display the titles of all older articles, leading to the Article Page
+
 
 (2)Management Page,
    input areas for creating new article:

@@ -19,13 +19,6 @@ export class PostsResolver {
     return await this.postsService.getPosts(10, 0);
   }
 
-  //get 5 more latter
-  @Query(returns => [PostEntity])
-  async getFiveMorePosts(): Promise<PostEntity[]> {
-    console.log(this.postsService.getPosts(5, 10));
-    return await this.postsService.getPosts(5, 10);
-  }
-
   //get all 
   @Query(() => [PostEntity])
   async getCategories(): Promise<PostEntity[]> {
