@@ -1,0 +1,36 @@
+{
+  "development": {
+    "uri": "postgres://whktcalcfxaozo:28c1ee0fe107da0d8d192123a003ca8d406adedb1caf64ce6ce0a6bcde6f0a38@ec2-54-164-56-10.compute-1.amazonaws.com:5432/da1si5vp3hl089",
+    "database": "da1si5vp3hl089",
+    "username": "whktcalcfxaozo",
+    "password": "28c1ee0fe107da0d8d192123a003ca8d406adedb1caf64ce6ce0a6bcde6f0a38",
+    "host": "ec2-54-164-56-10.compute-1.amazonaws.com",
+    "dialect": "postgres",
+    "protocol": "postgres",
+    "dialectOptions": {
+      "ssl":{
+        "require":true,
+        "rejectUnauthorized":false
+      },
+      "keepAlive":true
+    },
+    "ssl": true
+  },
+  "production": {
+    "use_env_variable": "postgres://whktcalcfxaozo:28c1ee0fe107da0d8d192123a003ca8d406adedb1caf64ce6ce0a6bcde6f0a38@ec2-54-164-56-10.compute-1.amazonaws.com:5432/da1si5vp3hl089",
+    "database": "database",
+    "username": "username",
+    "password": "password",
+    "host": "host",
+    "dialect": "postgres",
+    "protocol": "postgres",
+    "dialectOptions": {
+      "ssl":{
+        "require":true,
+        "rejectUnauthorized":false
+      },
+      "keepAlive":true
+    },
+    "ssl": true
+  }
+}

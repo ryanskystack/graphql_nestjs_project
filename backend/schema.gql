@@ -1,0 +1,59 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CategoryItem {
+  category_name: String!
+}
+
+type PostEntity {
+  post_id: ID
+  title: String
+  content: String
+  excerpt: String
+  createdAt: String
+  category_id: ID
+  category_name: String
+  author_id: ID
+  author_name: String
+  author_country: String
+}
+
+type InputEntity {
+  post_id: ID
+  title: String
+  content: String
+  excerpt: String
+  createdAt: String
+  category_id: ID
+  categories: [CategoryItem!]
+  author_id: ID
+  author_name: String
+  author_country: String
+}
+
+type Query {
+  getTenPosts: [PostEntity!]!
+  getFiveMorePosts: [PostEntity!]!
+  getCategories: [PostEntity!]!
+  getAllPosts: [PostEntity!]!
+  getPostById(post_id: ID!): PostEntity!
+}
+
+type Mutation {
+  createPost(input: CreatePostInput!): InputEntity!
+}
+
+input CreatePostInput {
+  title: String!
+  content: String!
+  excerpt: String!
+  createdAt: String!
+  categories: [Category!]!
+  author_name: String!
+  author_country: String!
+}
+
+input Category {
+  category_name: String!
+}

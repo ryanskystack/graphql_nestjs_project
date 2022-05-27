@@ -1,0 +1,74 @@
+
+.ArticleList {
+    height: 100vh;
+    overflow: hidden auto;
+    background-color: #ececec;
+    width: 250px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .ArticleList__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .ArticleList__item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #919191;
+  }
+
+
+.Article {
+    margin-left: 20px;
+    margin-top: 10vh;
+    margin-bottom: 10px;
+    max-height: 100%;
+    width: 960px;
+    overflow: hidden auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 2px ridge #919191;
+    text-align: center;
+  }
+  
+  .Article__status {
+    margin-top: 40px;
+  }
+  
+  .Article__title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align:center;
+  }
+
+  .Article__description {
+
+    margin: 40px;
+    font-weight: 400;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px;
+  }
+    .Article__tag {
+      margin: 40px;
+      font-weight: 400;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 10px;
+      background-color:  lightseagreen;
+  }
+
+
+  
+
+
+.navBar {
+  display:flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-items: flex-start;
+ 
+}
