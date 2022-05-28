@@ -48,38 +48,50 @@ const ManagementPage = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [content, setContent] = useState('');
-    const [createDate, setCreateDate] = useState<Date | null>(new Date());
+    const [createDate, setCreateDate] = useState<Date | null>(null);
     const [categories, setCategories] = useState<string[]>([]);
     const [names, setNames] = useState<string[]>([]);
     const [newCategory, setNewCategory] = useState('');
     const [isValidated, setIsValidated] = useState(false);
 
     const theme = useTheme();
+    const inputValidation=()=>{
+        if (
+
+            title!==''  && author!==''  && categories.length > 0 && content!=='' &&  createDate!==null
+        ) {
+            setIsValidated(true)
+        }
+       
+    }
 
     const titleChangeHandler = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setTitle(event.target.value);
-        if (
+        // if (
 
-            title !== '' && author !== '' && categories.length !== 0 && content !== ''
-        ) {
-            setIsValidated(true)
-        }
+        //     title !== '' && author !== '' && categories.length !== 0 && content !== ''
+        // ) {
+        //     setIsValidated(true)
+        // }
+        inputValidation()
     };
     const authorChangeHandler = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setAuthor(event.target.value);
-        if (
-            title !== '' && author !== '' && categories.length !== 0 && content !== ''
-        ) {
-            setIsValidated(true)
-        }
+        // if (
+        //     title !== '' && author !== '' && categories.length !== 0 && content !== ''
+        // ) {
+        //     setIsValidated(true)
+        // }
+        inputValidation()
     };
     const contentChangeHandler = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setContent(event.target.value);
-        if (
-            title !== '' && author !== '' && categories.length !== 0 && content !== ''
-        ) {
-            setIsValidated(true)
-        }
+        // if (
+        //     title !== '' && author !== '' && categories.length !== 0 && content !== ''
+        // ) {
+        //     setIsValidated(true)
+        // }
+        inputValidation()
     };
     const newCategoryChangeHandler = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setNewCategory(event.target.value);
@@ -103,11 +115,13 @@ const ManagementPage = () => {
             // On autofill we get a the stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
-        if (
-            title !== '' && author !== '' && categories.length !== 0 && content !== ''
-        ) {
-            setIsValidated(true)
-        }
+        console.log('setCategory categories:',categories)
+        // if (
+        //     title !== '' && author !== '' && categories.length !== 0 && content !== ''
+        // ) {
+        //     setIsValidated(true)
+        // }
+        inputValidation()
     };
 
     const addHandler = (event: { target: any; }) => {
@@ -162,6 +176,18 @@ const ManagementPage = () => {
     // if (loading) return 'Submitting...';
     // if (error) return `Submission error! ${error.message}`;
 
+    const createDateOnchange=(newValue: Date | null)=>{
+        setCreateDate(newValue);
+        if (
+
+            title!==''  && author!==''  && categories.length > 0 && content!=='' &&  newValue!==null
+        ) {
+            setIsValidated(true)
+        }
+    }
+
+
+
     const handleFormSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
@@ -179,7 +205,11 @@ const ManagementPage = () => {
         // setContent('');
         // setCreateDate(new Date());
         // setCategories([]);
-        console.log('createPost:', createPost());
+        console.log('createPost:', createPost(            {
+            variables: {
+                input: NewPost
+            }
+        }));
         console.log("NewPost:", NewPost)
 
     };
@@ -210,8 +240,8 @@ const ManagementPage = () => {
     // console.log("categories:", categories);
     // console.log('content:', content);
     // console.log('createdAt:', createDate);
-    console.log('validata:', title !== '' && author !== '' && categories.length !== 0 && content !== '')
-
+    console.log('validate:',   title!==''  && author!==''  && categories.length > 0 && content!=='' &&  createDate!==null)
+    console.log('isValidated:',isValidated)
     return (
         <div>
             < div >
@@ -326,14 +356,16 @@ const ManagementPage = () => {
                             <DatePicker
                                 label="createAt*"
                                 value={createDate}
-                                onChange={(newValue: Date | null) => {
-                                    setCreateDate(newValue);
-                                    if (
-                                        title !== '' && author !== '' && categories.length !== 0 && content !== ''
-                                    ) {
-                                        setIsValidated(true)
-                                    }
-                                }}
+                                // onChange={(newValue: Date | null) => {
+                                //     setCreateDate(newValue);
+                                //     if (
+                                //         // title !== '' && author !== '' && categories.length !== 0 && content !== ''
+                                //         title  && author  && categories.length !== 0 && content 
+                                //     ) {
+                                //         setIsValidated(true)
+                                //     }
+                                // }}
+                                onChange={createDateOnchange}
                                 renderInput={(params) => <TextField {...params} />}
                             />
                         </LocalizationProvider>

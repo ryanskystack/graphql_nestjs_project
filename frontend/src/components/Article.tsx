@@ -13,24 +13,24 @@ type Props = {
 
 const className = 'Article';
 
-const article = {
-    post_id: "2",
-    title: "Smile",
-    author_name: "John Dally",
-    author_country: "Australia",
-    // categories:[
-    //   {category_name:"sport"},
-    //   {category_name:"soccer"},
-    // ],
-    category_name: "soccer",
-    content: "ftsgas hertyc kudfpj nsdfdgfqsd dsfrgthyhytjuj  oklhsdfdsf",
-    createdAt: "2021-10-28"
-}
+// const article = {
+//     post_id: "2",
+//     title: "Smile",
+//     author_name: "John Dally",
+//     author_country: "Australia",
+//     // categories:[
+//     //   {category_name:"sport"},
+//     //   {category_name:"soccer"},
+//     // ],
+//     category_name: "soccer",
+//     content: "ftsgas hertyc kudfpj nsdfdgfqsd dsfrgthyhytjuj  oklhsdfdsf",
+//     createdAt: "2021-10-28"
+// }
 
 export default function Article({ data }: Props) {
     console.log("article data:", data)
-    // const { post_id, title, author_name, author_country, category_name, createdAt, content } = data.getPostById;
-    const { post_id, title, author_name, author_country, category_name, createdAt, content } = article;
+    const { post_id, title, author_name, author_country, category_name, createdAt, content } = data.getPostById;
+    // const { post_id, title, author_name, author_country, category_name, createdAt, content } = article;
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 

@@ -31,7 +31,7 @@ export const GET_CATEGORIES = gql`
 `;
 
 export const GetPostById = gql` 
- query getPostById($post_id: String!) {
+ query getPostById($post_id: Number) {
   getPostById(post_id: $post_id){
     post_id
     title
@@ -50,43 +50,81 @@ export const GetPostById = gql`
 
 
 
+// export const CREATE_POST = gql`
+//   mutation createPost($create_input: CreatePostInput!) {
+//     createPost(input: $create_input) {
+//       title
+//       content
+//       excerpt
+//       createdAt
+//       categories{
+//         category_name
+//       }[]
+//       author_name
+//       author_country
+//     }
+//   }
+// `;
+
 export const CREATE_POST = gql`
-  mutation createPost($create_input: CreatePostInput!) {
-    createPost(input: $create_input) {
+  mutation createPost(
+    $title: String!,
+    $content:String!,
+    $excerpt:String!,
+    $createdAt:String!,
+    $category_name:String!,
+    $author_name:String!,
+    $author_country:String!
+  ) {
+    createPost(objects:{
+      title: $title
+      content:$content
+      excerpt:$excerpt
+      createdAt:$createdAt
+      categories:{
+        $category_name
+      }[]
+      author_name:$author_name
+      author_country:$author_country
+    }
+      ) {
       title
       content
       excerpt
       createdAt
       categories{
         category_name
-      }
+      }[]
       author_name
       author_country
     }
   }
 `;
-// export const createPostDocument = gql`
-//    mutation createPost(
-//      $title: String!
-//      $content:String!
-//      $excerpt:String!
-//      $createdAt:String!
-//      $category_name:String!
-//      $author_name:String!
-//      $author_country:String!
-//    )
-// {
-//   title
-//   content
-//   excerpt
-//   createdAt
-//   category_name
-//   author_name
-//   author_country
 
-//      }   
+export const createPostDocument = gql`
+   mutation createPost(
+     $title: String!
+     $content:String!
+     $excerpt:String!
+     $createdAt:String!
+     $categories:{
+        category_name
+      }[]
+     $author_name:String!
+     $author_country:String!
+   )
+{
+  title
+  content
+  excerpt
+  createdAt
+  category_name
+  author_name
+  author_country
 
-// `;
+     }   
+
+`;
 
 
 
