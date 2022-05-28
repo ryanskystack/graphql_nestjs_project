@@ -34,10 +34,9 @@ type InputEntity {
 
 type Query {
   getTenPosts: [PostEntity!]!
-  getFiveMorePosts: [PostEntity!]!
   getCategories: [PostEntity!]!
   getAllPosts: [PostEntity!]!
-  getPostById(post_id: ID!): PostEntity!
+  getPostById(post_id: Int!): [PostEntity!]!
 }
 
 type Mutation {
