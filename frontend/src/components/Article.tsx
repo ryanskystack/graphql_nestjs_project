@@ -29,7 +29,7 @@ const className = 'Article';
 
 export default function Article({ data }: Props) {
     console.log("article data:", data)
-    const { post_id, title, author_name, author_country, category_name, createdAt, content } = data.getPostById;
+    const { post_id, title, author_name, author_country, categories, createdAt, content } = data.getPostById;
     // const { post_id, title, author_name, author_country, category_name, createdAt, content } = article;
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -76,12 +76,15 @@ export default function Article({ data }: Props) {
                             </Popover>
                         </div>
                     </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <p className={`${className}__tag`}
+                          <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    {
+                        categories.map((categoryName:string,index:number)=>{
+                         <span key={`categoryID:${index}`} className={`${className}__tag`}
                             style={{ border: 'solid, 2px' }}
-                        >{category_name}</p>
-                        <p className={`${className}__description`}>{createdAt}</p>
+                        >{categoryName}</span>
+                        })
+                    }
+                    <p className={`${className}__description`}>{createdAt}</p>
                     </div>
                     <p
                         className={`${className}__description`

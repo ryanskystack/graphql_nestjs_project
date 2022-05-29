@@ -18,7 +18,8 @@ export class CreatePostInput {
   @Field()
   readonly createdAt: string;
   @Field(type => [Category])
-  readonly categories: Array<{ category_name: string }>
+  // readonly categories: Array<{ category_name: string }>
+  readonly categories: [Category]
   @Field()
   readonly author_name: string;
   @Field()

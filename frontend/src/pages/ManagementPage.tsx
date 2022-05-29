@@ -26,8 +26,8 @@ interface UpdateNewPost {
     content: String
     excerpt: String
     createdAt: Date | null
-    // categories: String[]
-    categories: { category_name: string; }[] 
+    categories: String[]
+    // categories: { category_name: string; }[]
     author_name: String
     author_country: String
 }
@@ -37,8 +37,8 @@ interface NewPost {
     content: String
     excerpt: String
     createdAt: Date | null
-    // categories: String[]
-    categories: { category_name: string; }[] 
+    categories: String[]
+    // categories: { category_name: string }[]
     author_name: String
     author_country: String
 }
@@ -62,7 +62,7 @@ const ManagementPage = () => {
         ) {
             setIsValidated(true)
         }
-       
+
     }
 
     const titleChangeHandler = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -132,19 +132,19 @@ const ManagementPage = () => {
         };
         setNewCategory('');
     }
-    let excerpt;
+    let excerpt: string;
     if (content.length >= 20) {
         excerpt = content.substr(0, 20);
     } else {
         excerpt = content;
     }
     let author_country = 'Australia';
-    let categoriesArr: { category_name: string; }[] = [];
+    // let categoriesArr: { category_name: string; }[] = [];
 
-    categories.map((category) => {
-      return  categoriesArr.push( { category_name: category });
-        // Object.assign(categoriesObj, { category_name: category })
-    })
+    // categories.map((category) => {
+    //   return  categoriesArr.push( { category_name: category });
+    //     // Object.assign(categoriesObj, { category_name: category })
+    // })
     const NewPost = Object.assign(
         {},
         {
@@ -152,7 +152,7 @@ const ManagementPage = () => {
             content: content,
             excerpt: excerpt,
             createdAt: createDate,
-            categories: categoriesArr,
+            categories: categories,
             author_name: author,
             author_country: author_country,
         }
@@ -171,7 +171,35 @@ const ManagementPage = () => {
         ],
     });
 
-
+    // const [createPost, create_post] = useMutation<
+    //     { createPost: UpdateNewPost },
+    //     {
+    //         title: String,
+    //         content:String,
+    //         excerpt:String,
+    //         createdAt:Date | null,
+    //         categories:{
+    //             category_name:String
+    //           }[],
+    //         //   category_name:String,
+    //         author_name:String,
+    //         author_country:String
+    //     }
+    // >(CREATE_POST, {
+    //     variables: {
+    //         title: title,
+    //         content:content,
+    //         excerpt:excerpt,
+    //         createdAt:createDate,
+    //         categories:categoriesArr,
+    //         author_name:author,
+    //         author_country:author_country,
+    //     },
+    //     refetchQueries: [
+    //         GET_CATEGORIES, // DocumentNode object parsed with gql
+    //         'getCategories' // Query name
+    //     ],
+    // });
     console.log('create_post:', create_post)
     // if (loading) return 'Submitting...';
     // if (error) return `Submission error! ${error.message}`;
@@ -198,6 +226,19 @@ const ManagementPage = () => {
                 }
             }
         )
+        //  createPost(
+        //     {
+        //         variables: {
+        //             title: title,
+        //             content:content,
+        //             excerpt:excerpt,
+        //             createdAt:createDate,
+        //             categories:categoriesArr,
+        //             author_name:author,
+        //             author_country:author_country,
+        //         }
+        //     }
+        // )
             .then(result => console.log('add result:', result))
             .catch(e => console.log(e));
         // setTitle('');
@@ -205,11 +246,11 @@ const ManagementPage = () => {
         // setContent('');
         // setCreateDate(new Date());
         // setCategories([]);
-        console.log('createPost:', createPost(            {
-            variables: {
-                input: NewPost
-            }
-        }));
+        // console.log('createPost:', createPost(            {
+        //     variables: {
+        //         input: NewPost
+        //     }
+        // }));
         console.log("NewPost:", NewPost)
 
     };
@@ -360,7 +401,7 @@ const ManagementPage = () => {
                                 //     setCreateDate(newValue);
                                 //     if (
                                 //         // title !== '' && author !== '' && categories.length !== 0 && content !== ''
-                                //         title  && author  && categories.length !== 0 && content 
+                                //         title  && author  && categories.length !== 0 && content
                                 //     ) {
                                 //         setIsValidated(true)
                                 //     }

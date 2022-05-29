@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client';
 
-
-
 export const ArticlesList = gql`
   query GetAll {
     getAllPosts {
@@ -22,7 +20,7 @@ export const TenList = gql`
 `;
 
 export const GET_CATEGORIES = gql`
-  query getCategories {
+  query GetCategories {
     getCategories {
       category_id
       category_name
@@ -31,21 +29,20 @@ export const GET_CATEGORIES = gql`
 `;
 
 export const GetPostById = gql` 
- query getPostById($post_id: Number) {
+ query GetPostById($post_id: Number) {
   getPostById(post_id: $post_id){
     post_id
     title
     content
     excerpt
     createdAt
-    category_id
-    category_name
+    categories
     author_id
     author_name
     author_country
+  }
 }
- }
-    `;
+ `;
 
 
 
@@ -67,64 +64,98 @@ export const GetPostById = gql`
 // `;
 
 export const CREATE_POST = gql`
-  mutation createPost(
-    $title: String!,
-    $content:String!,
-    $excerpt:String!,
-    $createdAt:String!,
-    $category_name:String!,
-    $author_name:String!,
-    $author_country:String!
-  ) {
-    createPost(objects:{
-      title: $title
-      content:$content
-      excerpt:$excerpt
-      createdAt:$createdAt
-      categories:{
-        $category_name
-      }[]
-      author_name:$author_name
-      author_country:$author_country
-    }
-      ) {
+  mutation createPost($create_input: CreatePostInput!) {
+    createPost(input: $create_input) {
       title
       content
       excerpt
       createdAt
-      categories{
-        category_name
-      }[]
+      categories
       author_name
       author_country
     }
   }
 `;
 
-export const createPostDocument = gql`
-   mutation createPost(
-     $title: String!
-     $content:String!
-     $excerpt:String!
-     $createdAt:String!
-     $categories:{
-        category_name
-      }[]
-     $author_name:String!
-     $author_country:String!
-   )
-{
-  title
-  content
-  excerpt
-  createdAt
-  category_name
-  author_name
-  author_country
+// export const CREATE_POST = gql`
+//   mutation createPost($create_input: CreateInput{
+//     title: String
+//     content: String
+//     excerpt: String
+//     # createdAt: DateConstructor
+//     createdAt: Date
+//     categories: { category_name: string }[]
+//     author_name: String
+//     author_country: String
+//   }) {
+//     createPost(input: $create_input) {
+//       title
+//       content
+//       excerpt
+//       createdAt
+//       categories
+//       author_name
+//       author_country
+//     }
+//   }
+// `;
 
-     }   
+// export const CREATE_POST = gql`
+//   mutation CreatePost(
+//     $title: String!,
+//     $content:String!,
+//     $excerpt:String!,
+//     # $createdAt:Date|null,
+//     $createdAt:Date,
+//     $categories:{ category_name:String!}[],
+//     $category_name:String!,
+//     $author_name:String!,
+//     $author_country:String!
+//   ) {
+//     createPost(
+//       title: $title,
+//       content:$content,
+//       excerpt:$excerpt,
+//       createdAt:$createdAt,
+//       categories:$categories,
+//       author_name:$author_name,
+//       author_country:$author_country
+//     ) {
+//       title
+//       content
+//       excerpt
+//       createdAt
+//       categories
+//       author_name
+//       author_country
+//       }
+//   }
+// `;
 
-`;
+// export const createPostDocument = gql`
+//    mutation createPost(
+//      $title: String!
+//      $content:String!
+//      $excerpt:String!
+//      $createdAt:String!
+//      $categories:{
+//         category_name
+//       }[]
+//      $author_name:String!
+//      $author_country:String!
+//    )
+// {
+//   title
+//   content
+//   excerpt
+//   createdAt
+//   category_name
+//   author_name
+//   author_country
+
+//      }   
+
+// `;
 
 
 

@@ -3,7 +3,8 @@
 # ------------------------------------------------------
 
 type CategoryItem {
-  category_name: String!
+  category_id: Float
+  category_name: String
 }
 
 type PostEntity {
@@ -12,8 +13,7 @@ type PostEntity {
   content: String
   excerpt: String
   createdAt: String
-  category_id: ID
-  category_name: String
+  categories: [CategoryItem!]
   author_id: ID
   author_name: String
   author_country: String
@@ -25,7 +25,6 @@ type InputEntity {
   content: String
   excerpt: String
   createdAt: String
-  category_id: ID
   categories: [CategoryItem!]
   author_id: ID
   author_name: String
@@ -36,11 +35,11 @@ type Query {
   getTenPosts: [PostEntity!]!
   getCategories: [PostEntity!]!
   getAllPosts: [PostEntity!]!
-  getPostById(post_id: Int!): [PostEntity!]!
+  getPostById(post_id: ID!): [PostEntity!]!
 }
 
 type Mutation {
-  createPost(input: CreatePostInput!): InputEntity!
+  createPost(input: CreatePostInput!): [InputEntity!]!
 }
 
 input CreatePostInput {

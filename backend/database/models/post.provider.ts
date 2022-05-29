@@ -297,7 +297,7 @@ const getAllPosts = async () => {
             raw: true,
 
         }
-    ).then(result => {
+    ).then((result) => {
         console.log('allTitles result:', result);
         return result;
     });
@@ -307,8 +307,40 @@ getAllPosts().then(value => {
     console.log('getAllPosts result:',value);
 })
 
-const getPostById = async (id) => {
+// combine categories for the objects that have the same post_id
+const processCategory = (objectArray:any[]) => 
+// const processCategory = (objectArray) => 
+{
+	let postMap = new Map() ;
+  for (let i = 0 ; i < objectArray.length ; i++) 
+  {
+ 		let cur = objectArray[i] ;
+    // console.log(cur) ; // debug
+		if (postMap.has(cur.post_id)) 
+    {
+    	let exist = postMap.get(cur.post_id);
+      exist.categories.push({category_id: cur.category_id, category_name: cur.category_name});
+    }
+    else
+    {
+    	cur.categories = [{category_id: cur.category_id, category_name: cur.category_name}];
+      delete cur.category_id;
+      delete cur.category_name;
+      postMap.set(cur.post_id, cur) ; 
+    }
+  }
+  let result = [];
+  postMap.forEach(value => {
+  	result.push(value) ;
+  });
+//   console.log('combineArray:',result) ; // debug
+  return result;
+}
 
+
+
+// const getPostById = async (id) => {
+const getPostById = async (id:number) => {
     return await Post.findAll(
         {
             'attributes':
@@ -337,7 +369,7 @@ const getPostById = async (id) => {
                     'attributes': [
                     ],
                     all: true,
-                    nested: true,
+                    // nested: true,
                     required: false
                 },
                 {
@@ -353,68 +385,70 @@ const getPostById = async (id) => {
             raw: true,
 
         }
-    ).then(result => {
-        console.log('getPostById result:', result);
-        return result;
+    ).then((result: any) => {
+        // ).then((result) => {
+            console.log('getPostById result:', result);
+       let combinedCategoriesResult= processCategory(result) ;
+
+        console.log('combinedCategoriesResult result:', combinedCategoriesResult);
+        return combinedCategoriesResult;
     });
 };
 
 // const getPostById = async (id) => {
 
 //     return await Post.findAll(
-//         {
-//             'attributes':
-//             {
-//                 include: [
-//                     // [Sequelize.col('post-category.category_id'), 'category_id'],
-//                     // [Sequelize.col('post-category.category_name'), 'category_name'],
-//                     // [Sequelize.col('author.author_name'), 'author_name'],
-//                     // [Sequelize.col('author.author_country'), 'author_country'],
-//                 ],
-//                 exclude: [
-//                 ]
-//             },
-//             'include': [
-//                 // {
-//                 //     association: 'post-category',
-//                 //     attributes: [
-//                 //         // 'post_id','categoty_id'
-//                 //         // ['category_name']
-//                 //     ],
-//                 //     through: { attributes: [] },
-//                 //     required: false
-//                 // },
 //                 {
-//                     'model': 'category',
-//                     as:'categories',
-//                     'attributes': [
-//                         // 'category_id','category_name'
+//                     'attributes':
+//                     {
+//                         include: [
+//                             [Sequelize.col('post-category.category_id'), 'category_id'],
+//                             [Sequelize.col('post-category.category_name'), 'category_name'],
+//                             [Sequelize.col('author.author_name'), 'author_name'],
+//                             [Sequelize.col('author.author_country'), 'author_country'],
+//                         ],
+//                         exclude: [
+//                         ]
+//                     },
+//                     'include': [
+//                         {
+//                             association: 'post-category',
+//                             attributes: [
+//                                 // 'post_id','categoty_id'
+//                                 // ['category_name']
+//                             ],
+//                             through: { attributes: [] },
+//                             required: false
+//                         },
+//                         {
+//                             'model': 'category',
+//                             'attributes': [
+//                             ],
+//                             all: true,
+//                             nested: true,
+//                             required: false
+//                         },
+//                         {
+//                             'model': 'author',
+//                             'attributes': [
+//                             ]
+//                         },
+        
 //                     ],
-//                     all: true,
-//                     nested: true,
-//                     required: false
-//                 },
-//                 // {
-//                 //     'model': 'author',
-//                 //     'attributes': [
-//                 //     ]
-//                 // },
-
-//             ],
-//             'where': {
-//                 'post_id': id
-//             },
-//             raw: true,
-
-//         }
+//                     'where': {
+//                         'post_id': id
+//                     },
+//                     raw: true,
+        
+//                 }
 //     ).then(result => {
-//         console.log('getCategories result:', result);
+//         console.log('getPostById result:', result);
 //         return result;
 //     });
 // };
 
-// getPostById('2').then(value => {
-//     console.log(value);
+// getPostById(2).then(value => {
+//     console.log('getPostById:',value);
 // })
 
 const createPost = async (

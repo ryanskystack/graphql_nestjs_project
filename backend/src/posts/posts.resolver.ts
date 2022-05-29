@@ -37,7 +37,7 @@ export class PostsResolver {
   //    console.log("byID:",await this.postsService.getPostById(post_id))
   //   return await this.postsService.getPostById(post_id);
   // }
-  @Query(returns => [PostEntity])
+  @Query(() => [PostEntity])
   async getPostById(@Args('post_id', { type: () => ID }) post_id: number): Promise<PostEntity[]> {
      console.log("byID:",await this.postsService.getPostById(post_id))
     return await this.postsService.getPostById(post_id);
@@ -45,7 +45,7 @@ export class PostsResolver {
 
 
   //add new one
-  @Mutation(() => InputEntity)
+  @Mutation(() => [InputEntity])
   async createPost(@Args('input') createPostInput: CreatePostInput): Promise<InputEntity> {
     console.log("mutation:",await this.postsService.createPost(createPostInput))
     return await this.postsService.createPost(createPostInput);
