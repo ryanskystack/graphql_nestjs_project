@@ -384,7 +384,7 @@ const createPost = async (
     content,
     excerpt,
     createdAt,
-    categoryName,
+    categories,
     authorName,
     anthorCountry
 ) => {
@@ -394,7 +394,7 @@ const createPost = async (
             'author_name': authorName
         }
     }).then(result => {
-        console.log('createPost result:', result);
+        console.log('search author result:', result);
         if (result.length === 0) {
             //insert author name & country
             Author.create(
@@ -432,16 +432,16 @@ const createPost = async (
         }
     });
 
-    let create_category = await categoryName.forEach(name => {
+    let create_category = await categories.forEach(category => {
         Category.findAll({
             'where': {
-                'category_name': name
+                'category_name': category.category_name
             }
         }).then(result => {
             if (!result) {
                 //insert category
                 Category.create(
-                    { 'category_name': name }
+                    { 'category_name': category.category_name }
                 );
             } else {
                 console.log('category_name existed');

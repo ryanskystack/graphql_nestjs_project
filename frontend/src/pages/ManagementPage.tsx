@@ -139,12 +139,12 @@ const ManagementPage = () => {
         excerpt = content;
     }
     let author_country = 'Australia';
-    // let categoriesArr: { category_name: string; }[] = [];
+    let categoriesArr: any[] = [];
 
-    // categories.map((category) => {
-    //   return  categoriesArr.push( { category_name: category });
-    //     // Object.assign(categoriesObj, { category_name: category })
-    // })
+    categories.map((category) => {
+      return  categoriesArr.push( { "category_name": category });
+        // Object.assign(categoriesObj, { category_name: category })
+    })
     const NewPost = Object.assign(
         {},
         {
@@ -152,7 +152,7 @@ const ManagementPage = () => {
             content: content,
             excerpt: excerpt,
             createdAt: createDate,
-            categories: categories,
+            categories: categoriesArr,
             author_name: author,
             author_country: author_country,
         }

@@ -1,5 +1,19 @@
 import { gql } from '@apollo/client';
 
+type Category = {
+  category_name: string
+}
+
+type CreatePostInput ={
+  title: string
+  content: string
+  excerpt: string
+  createdAt: string
+  categories: [Category]
+  author_name: string
+  author_country: string
+}
+
 export const ArticlesList = gql`
   query GetAll {
     getAllPosts {
@@ -29,22 +43,8 @@ export const GET_CATEGORIES = gql`
 `;
 
 export const GetPostById = gql` 
- query GetPostById($post_id: ID) {
-  # getPostById(post_id: $post_id){
-  #   post_id
-  #   title
-  #   content
-  #   excerpt
-  #   createdAt
-  #   categories{
-  #     # category_id
-  #     category_name
-  #   }
-  #   author_id
-  #   author_name
-  #   author_country
-
-    getPostById(post_id: $post_id){
+ query GetPostById($post_id: ID!) {
+  getPostById(post_id: $post_id){
     post_id
     title
     content
@@ -80,7 +80,7 @@ export const GetPostById = gql`
 // `;
 
 export const CREATE_POST = gql`
-  mutation createPost($create_input: CreatePostInput!) {
+  mutation createPost($create_input: CreatePostInput) {
     createPost(input: $create_input) {
       title
       content

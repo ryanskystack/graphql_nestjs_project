@@ -13,25 +13,10 @@ type Props = {
 
 const className = 'Article';
 
-// const article = {
-//     post_id: "2",
-//     title: "Smile",
-//     author_name: "John Dally",
-//     author_country: "Australia",
-//     // categories:[
-//     //   {category_name:"sport"},
-//     //   {category_name:"soccer"},
-//     // ],
-//     category_name: "soccer",
-//     content: "ftsgas hertyc kudfpj nsdfdgfqsd dsfrgthyhytjuj  oklhsdfdsf",
-//     createdAt: "2021-10-28"
-// }
-
 export default function Article({ data }: Props) {
     console.log("article data:", data)
-    const { post_id, title, author_name, author_country, categories, createdAt, content } = data.getPostById;
+    const { post_id, title, author_name, author_country, categories, createdAt, content } = data.getPostById[0];
     // const { post_id, title, author_name, author_country, category_name, createdAt, content } = article;
-
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,11 +63,11 @@ export default function Article({ data }: Props) {
                     </div>
                           <div style={{ display: 'flex', justifyContent: 'center' }}>
                     {
-                        categories.map((categoryName:any,index:number)=>{
+                        categories.map((categoryName:any,index:number)=>
                          <span key={`categoryID:${index}`} className={`${className}__tag`}
                             style={{ border: 'solid, 2px' }}
                         >{categoryName.category_name}</span>
-                        })
+                    )
                     }
                     <p className={`${className}__description`}>{createdAt}</p>
                     </div>

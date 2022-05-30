@@ -40,6 +40,7 @@ export class PostsResolver {
   // }
   @Query(() => [PostEntity])
   async getPostById(@Args('post_id', { type: () => ID }) post_id: number): Promise<PostEntity[]> {
+    // async getPostById(@Args('post_id', { type: () => Int }) post_id: number): Promise<PostEntity[]> {
      console.log("byID:",await this.postsService.getPostById(post_id))
     return await this.postsService.getPostById(post_id);
   }

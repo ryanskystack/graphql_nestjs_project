@@ -1,24 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 
-// @ObjectType()
-// class CategoryItem {
-//   @Field({ nullable: true })
-//   category_id: number;
-//   @Field({ nullable: true })
-//   category_name: string;
-// }
-
-// @ObjectType()
-// class CategoryId {
-//   @Field({ nullable: true })
-//   category_id: number;
-// }
-
-// @ObjectType()
-// class CategoryName {
-//   @Field({ nullable: true })
-//   category_name: string;
-// }
 
 
 @ObjectType()
@@ -29,22 +10,6 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
   @Field({ nullable: true })
   category_name: string;
 }
-
-// @ObjectType()
-// class CategoryItem {
-//   @Field({ nullable: true })
-//   categories: [CategoryId, CategoryName]
-// }
-
-// export const CategoryItem = createUnionType({
-//   name: 'CategoryItem',
-//   types: () => [CategoryId, CategoryName] ,
-// });
-
-// const CategoryItem = categoryItemType({
-//   name: 'CategoryItem',
-//   types: () => [CategoryId, CategoryName] as const,
-// });
 
 @ObjectType()
 export class CategoryEntity {
@@ -85,6 +50,26 @@ export class PostEntity {
 }
 
 @ObjectType()
+export class CreatePostInput {
+  @Field({ nullable: true })
+  readonly title: string;
+  @Field({ nullable: true })
+  readonly content: string;
+  @Field({ nullable: true })
+  readonly excerpt: string;
+  @Field({ nullable: true })
+  readonly createdAt: string;
+  @Field(returns => [CategoryItem],{ nullable: true })
+  readonly categories: Array<typeof CategoryItem>
+  @Field({ nullable: true })
+  readonly author_name: string;
+  @Field({ nullable: true })
+  readonly author_country: string;
+
+}
+
+
+@ObjectType()
 export class InputEntity {
   @Field(() => ID,{ nullable: true })
   readonly post_id:number;
@@ -113,7 +98,4 @@ export class InputEntity {
   @Field({ nullable: true })
   readonly author_country: string;
 }
-// function categoryItemType(arg0: { name: string; types: () => readonly [typeof CategoryId, typeof CategoryName]; }) {
-//   throw new Error('Function not implemented.');
-// }
 

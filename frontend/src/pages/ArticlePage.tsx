@@ -11,14 +11,14 @@ import Article from "../components/Article";
 export default function ArticlePage() {
   const { post_id } = useParams<{ post_id: string }>();
   var postId=parseInt(post_id)
-
+  console.log("postId", postId);
   console.log('useParams post_id type:', typeof postId)
   const { data, error, loading } = useQuery(GetPostById, {
     // variables: { postId },
-    variables: { post_id:postId },
+    variables: { post_id: postId },
   });
 
-  console.log("post_id", postId);
+
   console.log("GetPostById data", data);
   console.log("GetPostById error", error);
   return (
