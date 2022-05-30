@@ -78,10 +78,10 @@ export default function Article({ data }: Props) {
                     </div>
                           <div style={{ display: 'flex', justifyContent: 'center' }}>
                     {
-                        categories.map((categoryName:string,index:number)=>{
+                        categories.map((categoryName:any,index:number)=>{
                          <span key={`categoryID:${index}`} className={`${className}__tag`}
                             style={{ border: 'solid, 2px' }}
-                        >{categoryName}</span>
+                        >{categoryName.category_name}</span>
                         })
                     }
                     <p className={`${className}__description`}>{createdAt}</p>

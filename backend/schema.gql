@@ -3,6 +3,10 @@
 # ------------------------------------------------------
 
 type CategoryItem {
+  category_name: String
+}
+
+type CategoryEntity {
   category_id: Float
   category_name: String
 }
@@ -33,7 +37,7 @@ type InputEntity {
 
 type Query {
   getTenPosts: [PostEntity!]!
-  getCategories: [PostEntity!]!
+  getCategories: [CategoryEntity!]!
   getAllPosts: [PostEntity!]!
   getPostById(post_id: ID!): [PostEntity!]!
 }

@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID,createUnionType } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 // @ObjectType()
 // class CategoryItem {
@@ -23,8 +23,8 @@ import { ObjectType, Field, ID,createUnionType } from '@nestjs/graphql';
 
 @ObjectType()
  class CategoryItem {
-  @Field({ nullable: true })
-  category_id: number;
+  // @Field({ nullable: true })
+  // category_id: number;
 
   @Field({ nullable: true })
   category_name: string;
@@ -46,13 +46,13 @@ import { ObjectType, Field, ID,createUnionType } from '@nestjs/graphql';
 //   types: () => [CategoryId, CategoryName] as const,
 // });
 
-// @ObjectType()
-// class CategoryItem {
-//   @Field({ nullable: true })
-//   category_id: number;
-//   @Field({ nullable: true })
-//   category_name: string;
-// }
+@ObjectType()
+export class CategoryEntity {
+  @Field({ nullable: true })
+  category_id: number;
+  @Field({ nullable: true })
+  category_name: string;
+}
 
 @ObjectType()
 export class PostEntity {

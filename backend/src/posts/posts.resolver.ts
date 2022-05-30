@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { NotFoundException } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { InputEntity, PostEntity } from './entities/post.entity';
+import { InputEntity, PostEntity,CategoryEntity } from './entities/post.entity';
 import { CreatePostInput } from './dto/create-post.input';
 import { ID, Int } from 'type-graphql';
 
@@ -19,12 +19,13 @@ export class PostsResolver {
     return await this.postsService.getPosts(10, 0);
   }
 
-  //get all 
-  @Query(() => [PostEntity])
+  //get all categories
+  @Query(() => [CategoryEntity])
   async getCategories(): Promise<PostEntity[]> {
     return await this.postsService.getCategories();
   };
 
+  //get all posts
   @Query(() => [PostEntity])
   async getAllPosts(): Promise<PostEntity[]> {
     return await this.postsService.getAllPosts();

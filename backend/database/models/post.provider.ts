@@ -217,79 +217,7 @@ const getAllPosts = async () => {
 
     return await Post.findAll(
         {
-            // 'attributes':
-            // {
-            //     include: [
-            //         // [Sequelize.col('post-category.category_id'), 'category_id'],
-            //         // [Sequelize.col('post-category.category_name'), 'category_name'],
-            //         // [Sequelize.col('author.author_name'), 'author_name'],
-            //         // [Sequelize.col('author.author_country'), 'author_country'],
-            //     ],
-            //     exclude: [
-            //     ]
-            // },
-            // 'include': [
-                
-            //     {
 
-            //         association: 'post-category',
-            //         as:'categories',                   
-            //          attributes: [
-            //         ],
-            //         through: { attributes: [] },
-            //         required: false,
-            //         nested: true,
-
-            //         include:[
-            //             // {
-            //             //     'model': Category,
-            //             //     as: 'category' ,
-            //             //     // as: 'post-category',
-            //             // }
-                   
-            //         {
-            //             'model': 'category',
-            //             // as: 'category' ,
-            //             'attributes': [
-                            
-            //             ],
-            //             all: true,
-            //             nested: true,
-            //             required: false
-            //         },
-            //      ]
-            //     }
-
-
-
-            //     // {
-            //     //     association: 'post-category',
-            //     //     as:'categories',                   
-            //     //      attributes: [
-            //     //     ],
-            //     //     through: { attributes: [] },
-            //     //     required: false,
-            //     //     // nested: true,
-            //     //     include:[
-
-            //     // {
-            //     //     'model': 'category',
-            //     //     // 'attributes': [
-            //     //     // ],
-            //     //     all: true,
-            //     //     // nested: true,
-            //     //     required: false
-            //     // },
-            //     //     ]
-            //     // },
-
-            //     // {
-            //     //     'model': 'author',
-            //     //     'attributes': [
-            //     //     ]
-            //     // },
-
-            // ],
             'order': [
                 ['createdAt', 'DESC'],
                 ['title'],     // sort the posts as data DESC
