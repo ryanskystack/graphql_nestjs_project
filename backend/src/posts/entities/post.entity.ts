@@ -49,53 +49,53 @@ export class PostEntity {
   readonly author_country: string;
 }
 
-@ObjectType()
-export class CreatePostInput {
-  @Field({ nullable: true })
-  readonly title: string;
-  @Field({ nullable: true })
-  readonly content: string;
-  @Field({ nullable: true })
-  readonly excerpt: string;
-  @Field({ nullable: true })
-  readonly createdAt: string;
-  @Field(returns => [CategoryItem],{ nullable: true })
-  readonly categories: Array<typeof CategoryItem>
-  @Field({ nullable: true })
-  readonly author_name: string;
-  @Field({ nullable: true })
-  readonly author_country: string;
+// @ObjectType()
+// export class CreatePostInput {
+//   @Field({ nullable: true })
+//   title: string;
+//   @Field({ nullable: true })
+//   content: string;
+//   @Field({ nullable: true })
+//   excerpt: string;
+//   @Field({ nullable: true })
+//   createdAt: string;
+//   @Field(returns => [CategoryItem],{ nullable: true })
+//   categories: Array<typeof CategoryItem>
+//   @Field({ nullable: true })
+//   author_name: string;
+//   @Field({ nullable: true })
+//   author_country: string;
 
-}
+// }
 
 
 @ObjectType()
 export class InputEntity {
-  @Field(() => ID,{ nullable: true })
-  readonly post_id:number;
+  // @Field(() => ID,{ nullable: true })
+  // readonly post_id:number;
   @Field({ nullable: true })
-  readonly title: string;
+  title: string;
   @Field({ nullable: true })
-  readonly content: string;
+  content: string;
   @Field({ nullable: true })
-  readonly excerpt: string;
+  excerpt: string;
   @Field({ nullable: true })
-  readonly createdAt: string;
+  createdAt: string;
   // @Field(() => ID,{ nullable: true })
   // readonly category_id: number;
   @Field(returns => [CategoryItem],{ nullable: true })
-  readonly categories: Array<typeof CategoryItem>
+  categories: Array<typeof CategoryItem>
   // readonly categories: Array<{ CategoryItem: any }>
   // readonly categories:CategoryItem[]
   // readonly categories: Array<typeof CategoryItem>
   // @Field(type => [CategoryItem],{ nullable: true })
   // // readonly categories: Array<{ CategoryItem: any }>；
   // readonly categories:CategoryItem[]
-  @Field(() => ID,{ nullable: true })
-  readonly author_id: number;
+  // @Field(() => ID,{ nullable: true })
+  // readonly author_id: number;
   @Field({ nullable: true })
-  readonly author_name: string;
+  author_name: string;
   @Field({ nullable: true })
-  readonly author_country: string;
+  author_country: string;
 }
 

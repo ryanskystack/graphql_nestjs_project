@@ -24,13 +24,11 @@ type PostEntity {
 }
 
 type InputEntity {
-  post_id: ID
   title: String
   content: String
   excerpt: String
   createdAt: String
   categories: [CategoryItem!]
-  author_id: ID
   author_name: String
   author_country: String
 }
@@ -43,7 +41,7 @@ type Query {
 }
 
 type Mutation {
-  createPost(input: CreatePostInput!): [InputEntity!]!
+  createPost(input: CreatePostInput!): InputEntity!
 }
 
 input CreatePostInput {

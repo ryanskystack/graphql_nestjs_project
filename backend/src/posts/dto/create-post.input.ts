@@ -10,18 +10,38 @@ class Category {
 @InputType()
 export class CreatePostInput {
   @Field()
-  readonly title: string;
+  title: string;
   @Field()
-  readonly content: string;
+  content: string;
   @Field()
-  readonly excerpt: string;
+  excerpt: string;
   @Field()
-  readonly createdAt: string;
-  @Field(type => [Category])
-  // readonly categories: Array<{ category_name: string }>
-  readonly categories: [Category]
+  createdAt: string;
+  @Field(returns => [Category])
+  categories: Array<typeof Category>;
+  // @Field(returns => [Category])
+  // // readonly categories: Array<{ category_name: string }>
+  // categories: [Category]
   @Field()
-  readonly author_name: string;
+  author_name: string;
   @Field()
-  readonly author_country: string;
+  author_country: string;
+}
+
+@InputType()
+export class InputEntity {
+  @Field()
+  title: string;
+  @Field()
+  content: string;
+  @Field()
+  excerpt: string;
+  @Field()
+  createdAt: string;
+  @Field(returns => [Category])
+  categories: Array<typeof Category>;
+  @Field()
+  author_name: string;
+  @Field()
+  author_country: string;
 }

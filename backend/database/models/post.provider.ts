@@ -379,19 +379,18 @@ const getPostById = async (id:number) => {
 //     console.log('getPostById:',value);
 // })
 
-const createPost = async (
-    title,
-    content,
-    excerpt,
-    createdAt,
-    categories,
-    authorName,
-    anthorCountry
-) => {
+const createPost = async (input) => {
+  const  {title,
+        content,
+        excerpt,
+        createdAt,
+        categories,
+        author_name,
+        author_country}=input
     //retrive whether Author name existed
     let create_author = await Author.findAll({
         'where': {
-            'author_name': authorName
+            'author_name': author_name
         }
     }).then(result => {
         console.log('search author result:', result);
@@ -399,8 +398,8 @@ const createPost = async (
             //insert author name & country
             Author.create(
                 {
-                    'author_name': authorName,
-                    'author_country': anthorCountry
+                    'author_name': author_name,
+                    'author_country': author_country
                 },
             ).then(result => result).catch(err => err);
         } else {
@@ -419,7 +418,9 @@ const createPost = async (
         console.log('result:', result);
         if (result.length = 0 || create_author !== '-1') {
             //insert into post table
-            create_author.createPost(
+            Post.create(
+
+            // create_author.createPost
                 {
                     'title': title,
                     'content': content,

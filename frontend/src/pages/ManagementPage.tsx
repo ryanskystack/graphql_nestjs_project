@@ -143,15 +143,17 @@ const ManagementPage = () => {
 
     categories.map((category) => {
       return  categoriesArr.push( { "category_name": category });
-        // Object.assign(categoriesObj, { category_name: category })
     })
+
+    console.log('999title:',title)
+    console.log('999title type:',typeof title)
     const NewPost = Object.assign(
         {},
         {
             title: title,
             content: content,
             excerpt: excerpt,
-            createdAt: createDate,
+            createdAt: createDate?.toString(),
             categories: categoriesArr,
             author_name: author,
             author_country: author_country,
@@ -160,49 +162,23 @@ const ManagementPage = () => {
     );
     console.log("NewPost:", NewPost)
 
-    const [createPost, create_post] = useMutation<
-        { createPost: UpdateNewPost },
-        { input: NewPost }
-    >(CREATE_POST, {
+    const [createPost, create_post] = useMutation
+    // <
+        // { createPost: UpdateNewPost },
+        // { input: NewPost }
+        // const [createPost, create_post] = useMutation<
+        // { createPost: UpdateNewPost },
+        // { input: NewPost }
+    // >
+    // (CREATE_POST);
+    (CREATE_POST, {
         variables: { input: NewPost },
         refetchQueries: [
             GET_CATEGORIES, // DocumentNode object parsed with gql
             'getCategories' // Query name
         ],
     });
-
-    // const [createPost, create_post] = useMutation<
-    //     { createPost: UpdateNewPost },
-    //     {
-    //         title: String,
-    //         content:String,
-    //         excerpt:String,
-    //         createdAt:Date | null,
-    //         categories:{
-    //             category_name:String
-    //           }[],
-    //         //   category_name:String,
-    //         author_name:String,
-    //         author_country:String
-    //     }
-    // >(CREATE_POST, {
-    //     variables: {
-    //         title: title,
-    //         content:content,
-    //         excerpt:excerpt,
-    //         createdAt:createDate,
-    //         categories:categoriesArr,
-    //         author_name:author,
-    //         author_country:author_country,
-    //     },
-    //     refetchQueries: [
-    //         GET_CATEGORIES, // DocumentNode object parsed with gql
-    //         'getCategories' // Query name
-    //     ],
-    // });
     console.log('create_post:', create_post)
-    // if (loading) return 'Submitting...';
-    // if (error) return `Submission error! ${error.message}`;
 
     const createDateOnchange=(newValue: Date | null)=>{
         setCreateDate(newValue);
@@ -218,14 +194,8 @@ const ManagementPage = () => {
 
     const handleFormSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-
-        createPost(
-            {
-                variables: {
-                    input: NewPost
-                }
-            }
-        )
+        console.log("777NewPost:", NewPost)
+        createPost({ variables: { input: NewPost } })
         //  createPost(
         //     {
         //         variables: {
@@ -246,12 +216,12 @@ const ManagementPage = () => {
         // setContent('');
         // setCreateDate(new Date());
         // setCategories([]);
-        // console.log('createPost:', createPost(            {
+        // console.log('666createPost():', createPost(            {
         //     variables: {
         //         input: NewPost
         //     }
         // }));
-        console.log("NewPost:", NewPost)
+       
 
     };
 
@@ -274,13 +244,6 @@ const ManagementPage = () => {
         };
     }, [data]);
 
-    // console.log("data:", data);
-    // console.log("names:", names);
-    // console.log('title:', title);
-    // console.log('author:', author);
-    // console.log("categories:", categories);
-    // console.log('content:', content);
-    // console.log('createdAt:', createDate);
     console.log('validate:',   title!==''  && author!==''  && categories.length > 0 && content!=='' &&  createDate!==null)
     console.log('isValidated:',isValidated)
     return (
@@ -288,7 +251,7 @@ const ManagementPage = () => {
             < div >
                 <Stack sx={{ width: '100%' }} spacing={2}>
                     {create_post.loading ? <Alert severity='info'>Submitting...</Alert> : <></>}
-                    {create_post.error ? <Alert severity='error'>{create_post.error}</Alert> : <></>}
+                    {(create_post?.called&&create_post.error) ? <Alert severity='error'>{'Submission error!'}</Alert> : <></>}
                     {create_post.data ? <Alert severity='success'>Article Created!</Alert> : <></>}
                 </Stack>
             </div >

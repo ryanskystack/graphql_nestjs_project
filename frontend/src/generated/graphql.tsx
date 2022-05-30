@@ -1,18 +1,19 @@
 import { gql } from '@apollo/client';
 
-type Category = {
-  category_name: string
-}
+// input Category  {
+//   category_name: string
+// }
 
-type CreatePostInput ={
-  title: string
-  content: string
-  excerpt: string
-  createdAt: string
-  categories: [Category]
-  author_name: string
-  author_country: string
-}
+// input CreatePostInput {
+//   title: String
+//   content: String
+//   excerpt: String
+//   createdAt: String
+//   categories: [Category]
+//   author_name: String
+//   author_country: String
+// }
+
 
 export const ArticlesList = gql`
   query GetAll {
@@ -80,8 +81,8 @@ export const GetPostById = gql`
 // `;
 
 export const CREATE_POST = gql`
-  mutation createPost($create_input: CreatePostInput) {
-    createPost(input: $create_input) {
+  mutation createPost($input: CreatePostInput!) {
+    createPost(input: $input) {
       title
       content
       excerpt

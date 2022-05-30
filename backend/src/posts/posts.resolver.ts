@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { NotFoundException } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { InputEntity, PostEntity,CategoryEntity } from './entities/post.entity';
+import { InputEntity,PostEntity,CategoryEntity } from './entities/post.entity';
 import { CreatePostInput } from './dto/create-post.input';
 import { ID, Int } from 'type-graphql';
 
@@ -47,10 +47,11 @@ export class PostsResolver {
 
 
   //add new one
-  @Mutation(() => [InputEntity])
-  async createPost(@Args('input') createPostInput: CreatePostInput): Promise<InputEntity> {
-    console.log("mutation:",await this.postsService.createPost(createPostInput))
-    return await this.postsService.createPost(createPostInput);
+  @Mutation(() => InputEntity)
+  async createPost(@Args('input') input: CreatePostInput): Promise<InputEntity> {
+    // async createPost(@Args('input') createPostInput: CreatePostInput): Promise<InputEntity> {
+    console.log("mutation:",await this.postsService.createPost(input))
+    return await this.postsService.createPost(input);
   };
 
 }
