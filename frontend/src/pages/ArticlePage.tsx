@@ -14,13 +14,12 @@ export default function ArticlePage() {
   console.log("postId", postId);
   console.log('useParams post_id type:', typeof postId)
   const { data, error, loading } = useQuery(GetPostById, {
-    // variables: { postId },
     variables: { post_id: postId },
   });
 
 
-  console.log("GetPostById data", data);
-  console.log("GetPostById error", error);
+  // console.log("GetPostById data", data);
+  // console.log("GetPostById error", error);
   return (
     <div >     
       <FetchHolder data={data} error={error} loading={loading}>

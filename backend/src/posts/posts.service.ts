@@ -6,14 +6,6 @@ const { getPosts, getAllPosts, getPostById, createPost,getCategories } = require
 @Injectable()
 export class PostsService {
 
-  //define ORM objects
-  // constructor( private databaseModule: typeof DatabaseModule) {}
-  // constructor(
-  //   @Inject('PostsRepository') private readonly postsRepository: typeof Post
-  // ) { }
-
-  
-  // constructor(private readonly postModule: Type<any>) {} 
 
   getCategories:any=getCategories;
   getPosts: any = getPosts;

@@ -196,19 +196,6 @@ const ManagementPage = () => {
         e.preventDefault();
         console.log("777NewPost:", NewPost)
         createPost({ variables: { input: NewPost } })
-        //  createPost(
-        //     {
-        //         variables: {
-        //             title: title,
-        //             content:content,
-        //             excerpt:excerpt,
-        //             createdAt:createDate,
-        //             categories:categoriesArr,
-        //             author_name:author,
-        //             author_country:author_country,
-        //         }
-        //     }
-        // )
             .then(result => console.log('add result:', result))
             .catch(e => console.log(e));
         // setTitle('');

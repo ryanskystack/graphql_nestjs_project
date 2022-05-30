@@ -140,10 +140,6 @@ const getPosts = async (num, index) => {
     });
 };
 
-// getPosts(5,10).then(value => {
-//     console.log(value);
-// })
-
 const getCategories = async () => {
     return await Category.findAll(
         {
@@ -157,61 +153,6 @@ const getCategories = async () => {
         return result;
     });
 };
-// getCategories().then(value => {
-//     console.log(value);
-// })
-
-
-// const getAllPosts = async () => {
-
-//     return await Post.findAll(
-//         {
-//             'attributes':
-//             {
-//                 include: [
-//                     [Sequelize.col('post-category.category_id'), 'category_id'],
-//                     [Sequelize.col('post-category.category_name'), 'category_name'],
-//                     [Sequelize.col('author.author_name'), 'author_name'],
-//                     [Sequelize.col('author.author_country'), 'author_country'],
-//                 ],
-//                 exclude: [
-//                 ]
-//             },
-//             'include': [
-//                 {
-//                     association: 'post-category',
-//                     attributes: [
-//                     ],
-//                     through: { attributes: [] },
-//                     required: false
-//                 },
-//                 {
-//                     'model': 'category',
-//                     'attributes': [
-//                     ],
-//                     all: true,
-//                     nested: true,
-//                     required: false
-//                 },
-//                 {
-//                     'model': 'author',
-//                     'attributes': [
-//                     ]
-//                 },
-
-//             ],
-//             'order': [
-//                 ['createdAt', 'DESC'],
-//                 ['title'],     // sort the posts as data DESC
-//             ],
-//             raw: true,
-
-//         }
-//     ).then(result => {
-//         console.log('allTitles result:', result);
-//         return result;
-//     });
-// };
 
 const getAllPosts = async () => {
 
@@ -323,61 +264,6 @@ const getPostById = async (id:number) => {
     });
 };
 
-// const getPostById = async (id) => {
-
-//     return await Post.findAll(
-//                 {
-//                     'attributes':
-//                     {
-//                         include: [
-//                             [Sequelize.col('post-category.category_id'), 'category_id'],
-//                             [Sequelize.col('post-category.category_name'), 'category_name'],
-//                             [Sequelize.col('author.author_name'), 'author_name'],
-//                             [Sequelize.col('author.author_country'), 'author_country'],
-//                         ],
-//                         exclude: [
-//                         ]
-//                     },
-//                     'include': [
-//                         {
-//                             association: 'post-category',
-//                             attributes: [
-//                                 // 'post_id','categoty_id'
-//                                 // ['category_name']
-//                             ],
-//                             through: { attributes: [] },
-//                             required: false
-//                         },
-//                         {
-//                             'model': 'category',
-//                             'attributes': [
-//                             ],
-//                             all: true,
-//                             nested: true,
-//                             required: false
-//                         },
-//                         {
-//                             'model': 'author',
-//                             'attributes': [
-//                             ]
-//                         },
-        
-//                     ],
-//                     'where': {
-//                         'post_id': id
-//                     },
-//                     raw: true,
-        
-//                 }
-//     ).then(result => {
-//         console.log('getPostById result:', result);
-//         return result;
-//     });
-// };
-
-// getPostById(2).then(value => {
-//     console.log('getPostById:',value);
-// })
 
 const createPost = async (input) => {
   const  {title,
@@ -388,52 +274,37 @@ const createPost = async (input) => {
         author_name,
         author_country}=input
     //retrive whether Author name existed
-    let create_author = await Author.findAll({
+    let searchAuthor = await Author.findAll({
         'where': {
             'author_name': author_name
         }
     }).then(result => {
         console.log('search author result:', result);
-        if (result.length === 0) {
-            //insert author name & country
-            Author.create(
-                {
-                    'author_name': author_name,
-                    'author_country': author_country
-                },
-            ).then(result => result).catch(err => err);
-        } else {
-            return '-1';
-        }
-    }).catch(err => console.log(err));
+        return result
+    }).catch(err => console.log('search author error:',err));
 
-    let create_post = await Post.findAll({
+
+    if (searchAuthor?.length === 0) {
+        //insert author name & country
+       Author.create(
+            {
+                'author_name': author_name,
+                'author_country': author_country
+            },
+        ).then(result => result).catch(err => console.log('add author error:',err));
+    } 
+
+    //retrive again for grabbing author_id which will be used to add post 
+    let searchAuthorId = await Author.findAll({
         'where': {
-            'title': title,
-            'content': content,
-            'excerpt': excerpt,
-            'createdAt': createdAt,
+            'author_name': author_name
         }
     }).then(result => {
-        console.log('result:', result);
-        if (result.length = 0 || create_author !== '-1') {
-            //insert into post table
-            Post.create(
+        console.log('search authorId result:', result);
+        return result[0].author?.dataValues.author_id
+    }).catch(err => console.log('search authorId error:',err));
 
-            // create_author.createPost
-                {
-                    'title': title,
-                    'content': content,
-                    'excerpt': excerpt,
-                    'createdAt': createdAt,
-                },
-            );
-        } else {
-            console.log('category_name existed');
-        }
-    });
-
-    let create_category = await categories.forEach(category => {
+    let createCategory = await categories.forEach(category => {
         Category.findAll({
             'where': {
                 'category_name': category.category_name
@@ -449,10 +320,63 @@ const createPost = async (input) => {
             }
         });
     });
+    console.log(createCategory)
+    let searchPost = await Post.findAll({
+        'where': {
+            'title': title,
+            'content': content,
+            'excerpt': excerpt,
+            'createdAt': createdAt,
+        }
+    }).then(result => {
+        console.log('result:', result);
+        return result
+    }).catch(err => console.log('search author error:',err));
 
-    console.log('created create_author: ' + create_author);
-    console.log('created create_post: ' + create_post);
-    console.log('created create_category: ' + create_category);
-};
+    if (searchPost.length = 0 ) {
+        //insert into post table
+        Post.create(
+        // create_author.createPost
+            {
+                'title': title,
+                'content': content,
+                'excerpt': excerpt,
+                'createdAt': createdAt,
+                'author_id':searchAuthorId
+            },
+        );
+
+        let searchPostId = await Post.findAll({
+            'where': {
+                'title': title,
+                'content': content,
+                'excerpt': excerpt,
+                'createdAt': createdAt,
+            }
+        }).then(result => {
+            console.log('search postId result:', result);
+            return result[0].post.dataValues.post_id
+        }).catch(err => console.log('search postId error:',err));
+
+        let CategoryIdArr=[]
+        let searchCategoryId= await categories.forEach(category => {
+            Category.findAll({
+                'where': {
+                    'category_name': category.category_name
+                }
+            }).then(result => {
+                CategoryIdArr.push(result)
+            });
+        });
+        console.log(searchCategoryId)
+        CategoryIdArr.forEach(categoryId => {
+            Post_Category.create({
+               'category_id': categoryId.category.dataValues.category_id,
+               'post_id':searchPostId
+                }
+        )
+    }) 
+
+}};
 
 module.exports = { db, getCategories, getPosts, getAllPosts, getPostById, createPost };

@@ -16,7 +16,6 @@ const className = 'Article';
 export default function Article({ data }: Props) {
     console.log("article data:", data)
     const { post_id, title, author_name, author_country, categories, createdAt, content } = data.getPostById[0];
-    // const { post_id, title, author_name, author_country, category_name, createdAt, content } = article;
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
